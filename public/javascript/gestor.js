@@ -34,7 +34,12 @@
 let categoriasUser = [];
 
 function Categoría(nombre, gasto) {
-    this.id = categoriasUser.length + 1;
+    if (categoriasUser.length === 0) {
+        this.id = 1;
+    }else{
+        let indice = categoriasUser.length - 1 ;
+        this.id = categoriasUser[indice].id+ 1;
+    }
     this.nombre = nombre;
     this.gasto = gasto;
 }
@@ -65,18 +70,31 @@ function agregarCategoria () {
       })
       .then((nombre) => {
         nombreCategoria = nombre;
-        swal("Ingresa el gasto de la categoría:" + nombreCategoria, {
-            content: "input",
-          })
-          .then((gasto) => {
-            gastoCategoria = parseFloat(gasto);
-            if (!Number(gasto)) {
-                swal("Error","El gasto debe ser un número vuelva a intentarlo",{icon: "error"});
-            }else {
-                agregarCategoriaUser (nombreCategoria, gastoCategoria);
-              
+        if (nombreCategoria === "" || nombreCategoria === null) {
+            swal("Error","El nombre no puede estar vacío vuelva a intentarlo",{icon: "error"});
+        }else{
+            let disponible = corroborarNombre(nombreCategoria);
+            console.log(disponible);
+            if (disponible){
+                swal("Ingresa el gasto de la categoría:" + nombreCategoria, {
+                    content: "input",
+                  })
+                  .then((gasto) => {
+                    gastoCategoria = parseFloat(gasto);
+                    if (!Number(gasto)) {
+                        swal("Error","El gasto debe ser un número vuelva a intentarlo",{icon: "error"});
+                    }else {
+                        agregarCategoriaUser (nombreCategoria, gastoCategoria);
+                      
+                    }
+                  });
             }
-          });
+            else{
+                swal("Error","El nombre de la categoría ya existe, ingresa una categoría diferente",{icon: "error"});
+            }
+        }
+
+
       });
 }
 
@@ -156,30 +174,50 @@ function calcularGastos () {
 }
 
 function buscarGasto () {
-    let idCategoria;
+    let nombreCategoriaABuscar;
     if (categoriasUser.length === 0) {
         swal("Error","No hay categorías agregadas para buscarla",{icon: "error"});
     }else {
-    swal("Ingresa el ID de la categoría que deseas buscar:", {
+    swal("Ingresa el nombre de la categoría que deseas buscar:", {
         content: "input",
       })
-      .then((id) => {
-        idCategoria = parseInt(id);
-        if (!Number(id)) {
-            swal("Error","El ID debe ser un número vuelva a intentarlo",{icon: "error"});
+      .then((valor) => {
+        console.log(valor);
+        nombreCategoriaABuscar = valor;
+        if (nombreCategoriaABuscar === "" || nombreCategoriaABuscar === null) {
+            swal("Error","El nombre de la categoría no puede ser vacio",{icon: "error"});
         }else {
-            buscarCategoriaUser(idCategoria);
+            buscarCategoriaUser(nombreCategoriaABuscar);
         }
       });
     }
 }
-function buscarCategoriaUser (id) {
-    categoriasUser.find( categoria =>{
-        if (categoria.id === id) {
-            swal("Genial","La categoría que buscas es: " + categoria.nombre + " y el gasto es: " + categoria.gasto, {icon: "success"});
-        }else{
-            swal("Error","La categoria que vuscas no existe vuelve a intentarlo",{icon: "error"});
-        }
-    })
+function buscarCategoriaUser (nombre) {
+    categoriaBuscada = categoriasUser.find( categoria =>{
+            if (categoria.nombre.includes(nombre)) {
+                return categoria;
+            }
+    });
+    console.log(categoriaBuscada);
+    if (categoriaBuscada) {
+        swal("Genial","La categoría que buscas es: " + categoriaBuscada.nombre +  " Que tiene un gasto de "+categoriaBuscada.gasto , {icon: "success"});
+    }else {
+        swal("Error","La categoría que buscas no existe",{icon: "error"});
+    }
 
+}
+
+function corroborarNombre(nom){
+   
+    if (categoriasUser.length === 0) {
+        return true;
+    }else{
+        let disponible = true;
+        categoriasUser.forEach(categoria => {
+            if (categoria.nombre === nom) {
+                disponible = false;
+            }
+        });
+        return disponible;
+    }  
 }
