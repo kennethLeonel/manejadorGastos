@@ -64,7 +64,9 @@ botonBuscarGasto.addEventListener("click", buscarGasto);
 
 function agregarCategoria () {
     let nombreCategoria ;
-    let gastoCategoria ;
+    let gastoCategoria  ; 
+    let hayPuntoOComa = false;
+   
     swal("Ingresa el nombre de la categoría:", {
         content: "input",
       })
@@ -80,13 +82,24 @@ function agregarCategoria () {
                     content: "input",
                   })
                   .then((gasto) => {
-                    gastoCategoria = parseFloat(gasto);
-                    if (!Number(gasto)) {
-                        swal("Error","El gasto debe ser un número vuelva a intentarlo",{icon: "error"});
+                    for (let i = 0; i <String( gasto).length; i++)
+                        {
+                            if (gasto[i]==="." || gasto[i]===",") {
+                                hayPuntoOComa = true;
+                            }
+                       
+                        }
+                    if (hayPuntoOComa) {
+                        swal("Error","El gasto debe ser un número sin puntos '.' o comas ',' ",{icon: "error"});
                     }else {
-                        agregarCategoriaUser (nombreCategoria, gastoCategoria);
-                      
-                    }
+                        gastoCategoria = parseFloat(gasto);
+                        if (!Number(gastoCategoria)) {
+                            swal("Error","El gasto debe ser un número vuelva a intentarlo",{icon: "error"});
+                        }else {
+                            console.log(gastoCategoria);
+                            agregarCategoriaUser (nombreCategoria, gastoCategoria);
+                        
+                        }}
                   });
             }
             else{
@@ -142,7 +155,7 @@ function eliminarCategoria () {
 
 function eliminarCategoriaUser (id) {
     categoriasUser.find( categoria =>{
-        if (categoria.id === id) {
+        if (categoria.id == id) {
             index = categoriasUser.indexOf(categoria);
             console.log(categoriasUser.length+ " arreglo completo " + categoria.nombre);
             console.log("hey estoy en esta pos", index);
