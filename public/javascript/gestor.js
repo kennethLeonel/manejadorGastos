@@ -1,38 +1,32 @@
-// let servicios = [{
-//     id: 1,
-//     nombre: "Hogar",
-//     descripcion: "Gastos del hogar",
-//     gasto: 0
-// },{
-//     id: 2,
-//     nombre: "Transporte",
-//     descripcion: "Gastos del transporte",
-//     gasto: 0
-// },{
-//     id: 3,
-//     nombre: "Alimentación",
-//     descripcion: "Gastos de la alimentación",
-//     gasto: 0
-// },{
-//     id: 4,
-//     nombre: "Gimnsaio",
-//     descripcion: "Gastos del gimnasio",
-//     gasto: 0
-// },{
-//     id: 5,
-//     nombre: "Salidas",
-//     descripcion: "Gastos de las salidas",
-//     gasto: 0
-// },{
-//     id: 6,
-//     nombre: "Ropa",
-//     descripcion: "Gastos de la ropa",
-//     gasto: 0
-// }
-// ]
+
+let nombreUsuario ;
+
+
+swal( "Bienvenido a tu gestor de gastos"  ,  {
+    text :  "¿Como te llamas?" ,
+    content :"input",
+}).then((value) => {
+    nombreUsuario = value;
+    nombreUsuario = String(nombreUsuario).charAt(0).toUpperCase() + String(nombreUsuario).slice(1);
+    let titulo = document.getElementById("titulo" );
+    if(nombreUsuario === "" || nombreUsuario === null){
+        swal("Entraste en modo incognito",{icon: "info", timer: 3000 });
+        titulo.innerHTML = "Gatos del usuario en modo incognito";
+
+    }else{
+   
+    titulo.innerHTML =  "Estos son tus gastos : "  + nombreUsuario +  " !" ; 
+    swal( "Hola "  + nombreUsuario +  " !" ,  "Disfruta de la mejor forma de saber tus gastos financieros" , {
+        icon :  "success" ,
+        timer :  3000
+    });
+    }
+
+})
+
+
 
 let categoriasUser = [];
-
 function Categoría(nombre, gasto) {
     if (categoriasUser.length === 0) {
         this.id = 1;
@@ -49,6 +43,7 @@ botonAgregar.addEventListener("click", agregarCategoria);
 
 // se obtiene el boton de eliminar categoría
 const botonEliminar = document.getElementById("eliminar");
+console.log(botonEliminar);
 botonEliminar.addEventListener("click", eliminarCategoria);
 
 // se obtiene el div para mostrar las categorías agregadas por el usuario
