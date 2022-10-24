@@ -1,11 +1,18 @@
 
-let nombreUsuario;
-let categoriasUser = JSON.parse(localStorage.getItem("categoriasUsuario")) || [];
-let titulo = document.getElementById("titulo");  
-
-if(JSON.parse(localStorage.getItem("nombreUsuario")) ===""){
-    localStorage.clear();
+let nombreUsuario =JSON.parse(localStorage.getItem("nombreUsuario")) || "";
+let storage = JSON.parse(localStorage.getItem("categoriasUsuario"));
+if ( storage === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "" || JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "Null" ) {
+    localStorage.setItem("categoriasUsuario", JSON.stringify([]));
 }
+let categoriasUser = JSON.parse(localStorage.getItem("categoriasUsuario")) ;
+let titulo = document.getElementById("titulo");  
+console.log(categoriasUser);
+
+
+
+
+
+
 
 // se obtiene el boton de agregar categoría
 const botonAgregar = document.getElementById("agregar");
@@ -42,7 +49,8 @@ function Categoría(nombre, gasto) {
     this.gasto = gasto;
 }
 
-if (JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "") {
+if (JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "" || JSON.parse(localStorage.getItem("nombreUsuario")) === "Null") {
+    
     swal("Bienvenido a tu gestor de gastos", {
         text: "¿Como te llamas?",
         content: "input",
@@ -52,10 +60,10 @@ if (JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(loc
         localStorage.setItem("nombreUsuario", JSON.stringify(nombreUsuario));
         console.log(localStorage.getItem("nombreUsuario"));
 
-        if (JSON.parse(localStorage.getItem("nombreUsuario")) === "" || JSON.parse(localStorage.getItem("nombreUsuario")) === null) {
+        if (JSON.parse(localStorage.getItem("nombreUsuario")) === "" || JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "Null") {
             swal("Entraste en modo incognito", { icon: "info", timer: 3000 });
             titulo.innerHTML = "Gatos del usuario en modo incognito";
-            localStorage.clear();
+            
         
         } else {
         
@@ -69,17 +77,23 @@ if (JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(loc
 
     })
 }else{
+    if (JSON.parse(localStorage.getItem("nombreUsuario")) === "" || JSON.parse(localStorage.getItem("nombreUsuario")) === null || JSON.parse(localStorage.getItem("nombreUsuario")) === "Null") {
+        swal("Entraste en modo incognito", { icon: "info", timer: 3000 });
+        titulo.innerHTML = "Gatos del usuario en modo incognito";
+        
+    } else {
+    
+        console.log("hola");
         titulo.innerHTML = "Estos son tus gastos : " + JSON.parse(localStorage.getItem("nombreUsuario") )+ " !";
-        swal("Hola " + JSON.parse(localStorage.getItem("nombreUsuario")) + " !", "Disfruta de la mejor forma de saber tus gastos financieros", {
+        swal("Hola " + JSON.parse(localStorage.getItem("nombreUsuario")) + " gracias por volver !", "Disfruta de la mejor forma de saber tus gastos financieros", {
             icon: "success",
             timer: 3000
         });
-       let datos = JSON.parse(localStorage.getItem("categoriasUsuario"));
+    }
+        let datos = JSON.parse(localStorage.getItem("categoriasUsuario"));
+        
         mostrarCategoriasUser(datos);  
 }
-
-
-
 
 
 function agregarCategoria() {
@@ -93,7 +107,7 @@ function agregarCategoria() {
         .then((nombre) => {
             nombreCategoria =String(nombre).charAt(0).toUpperCase() + String(nombre).slice(1);
       
-            if (nombreCategoria === "" || nombreCategoria === null) {
+            if (nombreCategoria === "" || nombreCategoria === null || nombreCategoria === "Null") {
                 swal("Error", "El nombre no puede estar vacío vuelva a intentarlo", { icon: "error" });
             } else {
                 let disponible = corroborarNombre(nombreCategoria);
@@ -135,10 +149,11 @@ function agregarCategoria() {
 function agregarCategoriaUser(nombre, gasto) {
     let categoria = new Categoría(nombre, gasto);
     swal("Genial", "Categoría agregada correctamente con el nombre: " + nombre + " y el gasto: " + gasto, { icon: "success" });
-    categoriasUser.push(categoria);
-
-    localStorage.setItem("categoriasUsuario", JSON.stringify(categoriasUser));
-    console.log(categoriasUser);
+    let categoriasStorage = JSON.parse(localStorage.getItem("categoriasUsuario"));
+    categoriasStorage.push(categoria);
+    console.log(categoriasStorage);
+    localStorage.setItem("categoriasUsuario", JSON.stringify(categoriasStorage));
+   
     mostrarCategoriasUser(JSON.parse(localStorage.getItem("categoriasUsuario")));
 
 }
@@ -159,6 +174,7 @@ function mostrarCategoriasUser(categoriasUser) {
 }
 
 function eliminarCategoria() {
+  
     let arregloStorage =JSON.parse(localStorage.getItem("categoriasUsuario"));
     let idCategoria;
     if (arregloStorage.length === 0) {
@@ -201,7 +217,8 @@ function eliminarCategoriaUser(id) {
 
 function calcularGastos() {
     let gastosTotal = 0;
-    let arregloStorage =JSON.parse(localStorage.getItem("categoriasUsuario"));
+    let arregloStorage = JSON.parse(localStorage.getItem("categoriasUsuario"));
+    console.log(localStorage.getItem("categoriasUsuario"));
     if (arregloStorage.length === 0) {
         swal("Error", "No hay categorías agregadas para calcular tu gasto", { icon: "error" });
     } else {
@@ -236,7 +253,8 @@ function buscarGasto() {
     }
 }
 function buscarCategoriaUser(nombre) {
-    categoriaBuscada = categoriasUser.find(categoria => {
+    let categoriasUsuario = JSON.parse(localStorage.getItem("categoriasUsuario"));
+    categoriaBuscada = categoriasUsuario.find(categoria => {
         if (categoria.nombre.includes(nombre)) {
             return categoria;
         }
@@ -251,12 +269,12 @@ function buscarCategoriaUser(nombre) {
 }
 
 function corroborarNombre(nom) {
-
-    if (categoriasUser.length === 0) {
+    let arregloStorage = JSON.parse(localStorage.getItem("categoriasUsuario"));
+    if (arregloStorage.length === 0) {
         return true;
     } else {
         let disponible = true;
-        categoriasUser.forEach(categoria => {
+        arregloStorage.forEach(categoria => {
             if (categoria.nombre === nom) {
                 disponible = false;
             }
@@ -266,7 +284,10 @@ function corroborarNombre(nom) {
 }
 
 function borrarCache(){ 
+
     localStorage.clear();
+    categoriasUser = [];
+    nombreUsuario = "";
     swal({ 
         title: "Genial",    
         icon: "success" ,
