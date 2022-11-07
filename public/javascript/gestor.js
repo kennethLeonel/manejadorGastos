@@ -248,8 +248,6 @@ function mostrarCategoriasUser(categoriasUser) {
         });
         apartadoGastos.innerHTML = mostrar;
         
-    }).catch((err) => {
-        swal("Error al cargar las categorias ", err);
     });
    
   
