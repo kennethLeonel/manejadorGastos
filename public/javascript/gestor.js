@@ -228,15 +228,19 @@ function mostrarCategoriasUser(categoriasUser) {
         categoriasUser.forEach(categoria => {
             // icono de la categoria 
             let icono = "";
+            let estilo = "background-color:";
+            // style="background-color:"+ ${estilo} +";"
             let dato = data.find(dato => dato.nombre === categoria.nombre);
             if (dato){
                 icono = dato.icono;
+                estilo += dato.color ;
             }else{
                 icono = "fas fa-question-circle";
+                estilo +=  "rgb(221,246,243); ";
             }
-         
+            style="background-color: blue;"
             mostrar += `
-                <div class="categoria">
+                <div class="categoria" style=${estilo} >
                 <p>ID: ${categoria.id}</p>
                 <p><i class="${icono} "></i></p>
                 <p>Nombre: ${categoria.nombre}</p>
@@ -334,6 +338,8 @@ function buscarGasto() {
     }
 }
 function buscarCategoriaUser(nombre) {
+    
+    nombre =  nombre.charAt(0).toUpperCase() + nombre.slice(1);
     let categoriasUsuario = JSON.parse(localStorage.getItem("categoriasUsuario"));
     categoriaBuscada = categoriasUsuario.find(categoria => {
         if (categoria.nombre.includes(nombre)) {

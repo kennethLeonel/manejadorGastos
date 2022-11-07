@@ -1,39 +1,48 @@
 [
     {
         "nombre": "Servicio Agua",
-        "icono" :  "fa-solid fa-droplet"
+        "icono" :  "fa-solid fa-droplet",
+        "color" : "rgb(42,68,154)"
     },
     {
         "nombre": "Servicio Gas", 
-        "icono" :  "fa-solid fa-gas-pump"
+        "icono" :  "fa-solid fa-gas-pump",
+        "color" : "rgb(97,56,210)"
     },
     {
         "nombre": "Servicio Luz",
-        "icono" :  "fa-solid fa-lightbulb"
+        "icono" :  "fa-solid fa-lightbulb",
+        "color" : "rgb(150,201,9)"
     },
     {
         "nombre": "Servicio Internet",
-        "icono" :  "fa-solid fa-wifi"
+        "icono" :  "fa-solid fa-wifi",
+        "color" : "rgb(75,82,93)"
     },
     {
         "nombre": "Servicio Telefono",
-        "icono" :  "fa-solid fa-phone"
+        "icono" :  "fa-solid fa-phone",
+        "color" : "rgb(186,51,51)"
     },
     {
         "nombre": "Servicio TV",
-        "icono" :  "fa-solid fa-tv"
+        "icono" :  "fa-solid fa-tv",
+        "color" : " rgb(17,77,101)"
     },
     {
         "nombre": "Mercado Verduras",
-        "icono" : "fa-solid fa-carrot"
+        "icono" : "fa-solid fa-carrot",
+        "color" : "rgb(32,213,74)"
     }, 
     {
         "nombre": "Mercado Hogar",
-        "icono" : "fa-solid fa-home"
+        "icono" : "fa-solid fa-home",
+        "color" : "rgb(216,84,233)"
     },
     {
         
         "nombre": "Gastos Mascota",
-        "icono" : "fa-solid fa-dog"
+        "icono" : "fa-solid fa-dog",
+        "color" : "rgb(99,57,23)"
     }
 ]

@@ -3,6 +3,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+body{
+    font-family: 'Poppins', sans-serif;
+    background: #e0dbdb;
+}
 
 .titulo-index{
     font-size: 30px;
@@ -22,7 +26,7 @@
     
 }
 .categoria{
-    background-color: rgb(221, 246, 243);
+    
     padding: 10px;
     border-radius: 10px;
     width: 50%;
@@ -37,17 +41,76 @@
 
 }
  .categoria:hover{
-    background-color: rgb(75, 149, 184);
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    background-color: rgb(186, 197, 203) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
     transform: scale(1.08);
     
+}
+#agregar {
+    background-color: cornflowerblue;
+    border-radius: 5px; 
+    color: white;
+    padding: 5px; 
+    transition: 1s all;
+}
+#agregar:hover{
+    background-color: rgb(0, 0, 255);
+    cursor: pointer;
+}
+#eliminar{
+    background-color: rgb(255, 0, 0);
+    border-radius: 5px; 
+    padding: 5px; 
+    color: white;
+    transition: 1s all;
+}
+#eliminar:hover{
+    cursor: pointer;
+}
+
+#calcular{
+    background-color: rgb(0, 255, 0);
+    border-radius: 5px; 
+    padding: 5px; 
+    color: white;
+    transition: 1s all;
+}
+#calcular:hover{
+    cursor: pointer;
+}
+#detallar{
+    background-color: rgb(255, 255, 0);
+    border-radius: 5px; 
+    padding: 5px; 
+
+    transition: 1s all;
+}
+#detallar:hover{
+    cursor: pointer;
+}
+#cache{
+    background-color: rgb(235, 163, 104);
+    border-radius: 5px; 
+    padding: 5px; 
+    color: black;
+    transition: 1s all;
+}
+#cache:hover{
+    cursor: pointer;
+}
+.botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    gap: 4px;
 }
 
 @media  (min-width: 768px) {
 
     .categoria{
         width: 30%;
-       
     }
 }
     
