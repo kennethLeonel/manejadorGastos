@@ -1,0 +1,39 @@
+[
+    {
+        "nombre": "Servicio Agua",
+        "icono" :  "fa-solid fa-droplet"
+    },
+    {
+        "nombre": "Servicio Gas", 
+        "icono" :  "fa-solid fa-gas-pump"
+    },
+    {
+        "nombre": "Servicio Luz",
+        "icono" :  "fa-solid fa-lightbulb"
+    },
+    {
+        "nombre": "Servicio Internet",
+        "icono" :  "fa-solid fa-wifi"
+    },
+    {
+        "nombre": "Servicio Telefono",
+        "icono" :  "fa-solid fa-phone"
+    },
+    {
+        "nombre": "Servicio TV",
+        "icono" :  "fa-solid fa-tv"
+    },
+    {
+        "nombre": "Mercado Verduras",
+        "icono" : "fa-solid fa-carrot"
+    }, 
+    {
+        "nombre": "Mercado Hogar",
+        "icono" : "fa-solid fa-home"
+    },
+    {
+        
+        "nombre": "Gastos Mascota",
+        "icono" : "fa-solid fa-dog"
+    }
+]
